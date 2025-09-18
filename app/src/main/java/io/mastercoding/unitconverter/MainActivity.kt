@@ -21,6 +21,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Button
 import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +39,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             UnitConverterTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                ) { innerPadding ->
                     UnitConverter(innerPadding)
                 }
             }
@@ -38,27 +51,83 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverter(padding: PaddingValues = PaddingValues(0.dp)){
-    Column(modifier = Modifier.padding(padding)) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         // すべてのUIが下に積まれていく
-        Text("Unit Converter")
+
+        Text("Unit Converter", modifier = Modifier.padding(100.dp))
+//        Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(value = "", onValueChange = {
             // OutlinedTextFiledの値が変わったときに何をするか？
         })
+        Spacer(modifier=Modifier.height(16.dp))
         Row {
-            val context = LocalContext.current
             //すべてのUIが横に並ぶ
             // Toast は 「どのアプリに出すメッセージか」 を区別するために Context が必須。
             //Compose の中では LocalContext.current を読むのが一番簡単で安全な方法です
-
-            Button(onClick ={ Toast
-                .makeText(context,
-                    "Thanks for clicking",
-                    Toast.LENGTH_LONG).show() })
-            {
-                Text("Click me!")
+            Box {
+                Button(onClick = {
+                })
+                {
+                    Text("Select")
+                    Icon(Icons.Default.ArrowDropDown,
+                        contentDescription = "Arrow Down")
+                }
+                DropdownMenu(expanded = false, onDismissRequest = {}) {
+                    DropdownMenuItem(
+                        text = { Text("Centimeters") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Meters") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Feet") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Milimeters") },
+                        onClick = { /*TODO*/ }
+                    )
+                }
             }
+            Spacer(modifier=Modifier.width(16.dp))
+            Box {
+                Button(onClick = {
+
+                })
+                {
+                    Text("Select")
+                    Icon(Icons.Default.ArrowDropDown,
+                        contentDescription = "Arrow Down")
+                }
+                DropdownMenu(expanded = false, onDismissRequest = {}) {
+                    DropdownMenuItem(
+                        text = { Text("Centimeters") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Meters") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Feet") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Milimeters") },
+                        onClick = { /*TODO*/ }
+                    )
+                }
+            }
+
         }
-        Text("Result:")
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("Result: ")
     }
 }
 
