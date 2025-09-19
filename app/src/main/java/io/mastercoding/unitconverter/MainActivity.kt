@@ -32,6 +32,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +55,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverter(padding: PaddingValues = PaddingValues(0.dp)){
+
+    var inputValue by remember { mutableStateOf("") }
+    var outputValue by remember { mutableStateOf("") }
+    var inputUnit by remember { mutableStateOf("Centimeters" ) }
+    var outputUnit by remember { mutableStateOf("Meters") }
+    var iExpanded by remember { mutableStateOf("false") }
+    var oExpanded by remember { mutableStateOf("false") }
+    val conversionFactor by remember { mutableStateOf(0.01) }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         Arrangement.Center,
@@ -58,11 +71,16 @@ fun UnitConverter(padding: PaddingValues = PaddingValues(0.dp)){
     ) {
         // すべてのUIが下に積まれていく
 
-        Text("Unit Converter", modifier = Modifier.padding(100.dp))
+        Text("Unit Converter")
 //        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = "", onValueChange = {
+        OutlinedTextField(value = inputValue,
+            onValueChange = {
+                inputValue = it
             // OutlinedTextFiledの値が変わったときに何をするか？
-        })
+            },
+            label = {
+                Text("Enter value")
+            })
         Spacer(modifier=Modifier.height(16.dp))
         Row {
             //すべてのUIが横に並ぶ
